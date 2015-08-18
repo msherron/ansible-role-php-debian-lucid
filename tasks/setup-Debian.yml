@@ -2,6 +2,12 @@
 - name: Update apt cache.
   apt: update_cache=yes cache_valid_time=86400
 
+- name: Add Apt repository if Debian Lucid.
+  apt_repository:
+    repo: 'ppa:l-mierzwa/lucid-php5'
+    state: present
+  when: (debian_lucid_flag == true) 
+
 - name: Ensure PHP packages are installed.
   apt:
     name: "{{ item }}"
